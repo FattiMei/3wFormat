@@ -17,4 +17,4 @@ Simply `make` in this directory.
 ### To gcode
   `./to_gcode.out filename`
 
-Accepts a 3w file and dumps the extracted gcode to stdout. If the file does not follow the specification, the prints an error message.
+Accepts a 3w file and dumps the extracted gcode to stdout. If the file does not follow the specification, prints an error message.
