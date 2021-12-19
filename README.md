@@ -1,4 +1,4 @@
-#3wFormat
+## Rationale
 XYZ printers work with a proprietary file format known as 3w. Thanks to the work of many people on the internet, we have a better understanding of the format.
 This repository collects infomation about 3w files and provides tools for conversion between gcode and 3w.
 
