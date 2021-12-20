@@ -10,7 +10,7 @@ A 3w files consists of four contiguous blocks of data:
   4. gcode
 
 ### header (version 5) [0 : 112]
-A byte structure if _112 bytes_ containing information about the file, like the signature and version.
+A byte structure containing information about the file, like the signature and version.
 
 | Offset | Size	| Type 		| Name			| Default value		|
 | ------ | ----	| ---- 		| ----			| -------------		|
@@ -43,6 +43,6 @@ Contains gcode encrypted with AES-256 ECB:
 
   * AES-256: see https://wikipedia.org/wiki/Advanced_Encryption_Standard
   * ECB mode: every 16-byte block is encrypted/decrypted with the same key
-  * key: `@xyzprinting.com@xyzprinting.com
+  * key: `@xyzprinting.com@xyzprinting.com`
 
 Plain gcode data always ends with the string `;END`. If plain gcode bytes are not a multiple of 16, they will be padded with *pkcs7-style* padding. 
