@@ -105,7 +105,7 @@ bool mv_startswith(struct memory_view mv, struct memory_view prefix){
 
 
 bool mv_endswith(struct memory_view mv, struct memory_view suffix){
-	return mv_equals(mv_drop_first(mv, mv.size - suffix.size), suffix);
+	return mv_equals(mv_take_last(mv, suffix.size), suffix);
 }
 
 
