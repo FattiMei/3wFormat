@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "unity.h"
-#include "memory_view.h"
+#include "../src/memory_view.h"
 
 
 void setUp(){

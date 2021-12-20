@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "unity.h"
-#include "XYZ3W.h"
-#include "memory_view.h"
+#include "../src/XYZ3W.h"
+#include "../src/memory_view.h"
 
 void setUp(){
 }
