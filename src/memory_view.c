@@ -5,7 +5,7 @@
 #include "memory_view.h"
 
 
-struct memory_view mv_from_string(const char *s){
+struct memory_view mv_from_cstring(const char *s){
 	return (struct memory_view){s, strlen(s)};
 }
 
@@ -25,13 +25,29 @@ struct memory_view mv_slice(struct memory_view mv, unsigned int start, unsigned 
 }
 
 
-struct memory_view mv_slice_from_offset_to_end(struct memory_view mv, unsigned int start) {
-	return mv_slice(mv, start, mv.size);
+struct memory_view mv_take_first(struct memory_view mv, size_t n){
+	return mv_slice(mv, 0, n);
 }
 
 
-struct memory_view mv_slice_from_start_to_offset(struct memory_view mv, unsigned int offset){
-	return mv_slice(mv, 0, offset);
+struct memory_view mv_take_last(struct memory_view mv, size_t n){
+	if(n > mv.size)
+		n = mv.size;
+
+	return mv_slice(mv, mv.size - n, mv.size);
+}
+
+
+struct memory_view mv_drop_first(struct memory_view mv, size_t n){
+	return mv_slice(mv, n, mv.size);
+}
+
+
+struct memory_view mv_drop_last(struct memory_view mv, size_t n){
+	if(n > mv.size)
+		n = mv.size;
+
+	return mv_slice(mv, 0, mv.size - n);
 }
 
 
@@ -84,12 +100,12 @@ bool mv_equals(struct memory_view a, struct memory_view b){
 
 
 bool mv_startswith(struct memory_view mv, struct memory_view prefix){
-	return mv_equals(mv_slice_from_start_to_offset(mv, prefix.size), prefix);
+	return mv_equals(mv_take_first(mv, prefix.size), prefix);
 }
 
 
 bool mv_endswith(struct memory_view mv, struct memory_view suffix){
-	return mv_equals(mv_slice_from_offset_to_end(mv, mv.size - suffix.size), suffix);
+	return mv_equals(mv_drop_first(mv, mv.size - suffix.size), suffix);
 }
 
 

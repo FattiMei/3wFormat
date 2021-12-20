@@ -36,7 +36,7 @@ int main(int argc, char *argv[]){
 			unsigned char *buf = (unsigned char *) malloc(size);
 
 			if(buf == NULL){
-				fprintf(stderr, "Failed memory allocation of %d bytes\n", size);
+				fprintf(stderr, "Failed memory allocation of %ld bytes\n", size);
 				return -1;
 			}
 			else{

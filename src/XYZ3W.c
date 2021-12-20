@@ -217,7 +217,7 @@ struct memory_view unpack_gcode(void *buf, struct memory_view gcode){
 	if(gcode.data != NULL && gcode.size > 0 && gcode.size % 16 == 0){
 		struct memory_view plain_gcode = aes256_decrypt_ecb(buf, KEY, gcode);
 
-		if(!mv_endswith(plain_gcode, mv_from_string(END_STRING))){
+		if(!mv_endswith(plain_gcode, mv_from_cstring(END_STRING))){
 			plain_gcode = unpad_pkcs7(plain_gcode);
 		}
 

@@ -54,7 +54,7 @@ struct memory_view unpad_pkcs7(struct memory_view mv){
 	struct memory_view result = {0};
 
 	if(mv.data != NULL && mv.size % 16 == 0){
-		struct memory_view last_block = mv_slice_from_offset_to_end(mv, mv.size - 16);
+		struct memory_view last_block = mv_take_last(mv, 16);
 		unsigned char x = last_block.data[15];
 
 		if(x <= 16 && mv_count(last_block, x) == x)
