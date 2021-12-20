@@ -7,7 +7,7 @@
 #include <stdbool.h>
 
 
-#define MV(ptr, size) = (struct memory_view){(ptr), (size)}
+#define MV(ptr, size) (struct memory_view){(ptr), (size)}
 #define MV_NULL MV(NULL, 0)
 
 

@@ -77,7 +77,7 @@ int mv_index_slice(struct memory_view mv, unsigned char x, unsigned int start, u
 }
 
 
-unsigned int mv_count(struct memory_view mv, unsigned char x){
+size_t mv_count(struct memory_view mv, unsigned char x){
 	unsigned int count = 0;
 
 	if(mv.data != NULL)
