@@ -25,14 +25,13 @@ void test_mv_slice(){
 
 
 void test_mv_index(){
-	TEST_ASSERT_EQUAL_UINT32(6, mv_index(mv_from_cstring("0123456789"), '6'));
-	TEST_ASSERT_EQUAL_UINT32(-1, mv_index(mv_from_cstring("0123456789"), 'G'));
-}
+	size_t i = 0;
 
-
-void test_mv_index_slice(){
-	TEST_ASSERT_EQUAL_UINT32(9, mv_index_slice(mv_from_cstring("0123456789"), '9', 4, 10));
-	TEST_ASSERT_EQUAL_UINT32(-1, mv_index_slice(mv_from_cstring("0123456789"), '0', 1, 4));
+	TEST_ASSERT_TRUE(mv_index(mv_from_cstring("0123456789"), '6', NULL));
+	TEST_ASSERT_FALSE(mv_index(mv_from_cstring("0123456789"), 'G', NULL));
+	
+	TEST_ASSERT_TRUE(mv_index(mv_from_cstring("0123456789"), '6', &i));
+	TEST_ASSERT_EQUAL(6, i);
 }
 
 
@@ -51,6 +50,9 @@ void test_mv_equals(){
 
 	TEST_ASSERT_FALSE(mv_equals(mv_from_cstring("Ciao, Matteo"),
 				    mv_from_cstring("Ciao, Mattia")));
+
+	TEST_ASSERT_FALSE(mv_equals(mv_from_cstring("Hello, world!"),
+				    MV_NULL));
 }
 
 
@@ -79,7 +81,6 @@ int main(){
 	RUN_TEST(test_mv_slice);
 	RUN_TEST(test_mv_equals);
 	RUN_TEST(test_mv_index);
-	RUN_TEST(test_mv_index_slice);
 	RUN_TEST(test_mv_count);
 	RUN_TEST(test_mv_startswith);
 	RUN_TEST(test_mv_endswith);

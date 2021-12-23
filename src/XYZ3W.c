@@ -111,12 +111,16 @@ struct xyz_file decompose_3w_file(struct memory_view mv){
 		  		gcode;
 
 	if(mv.data != NULL){
-		int first_zero_offset = mv_index_slice(mv, 0, HEADER_LEN, GCODE_OFFSET);
-		if(first_zero_offset < 0)
-			first_zero_offset = GCODE_OFFSET;
+		size_t zero_offset = 0;
+		bool found_zero = mv_index(mv_slice(mv, HEADER_LEN, GCODE_OFFSET), 0, &zero_offset);
+
+		if(found_zero)
+			zero_offset += HEADER_LEN;
+		else
+			zero_offset = GCODE_OFFSET;
 
 		header 		= mv_slice(mv, 0, HEADER_LEN);
-		print_info 	= mv_slice(mv, HEADER_LEN, first_zero_offset);
+		print_info 	= mv_slice(mv, HEADER_LEN, zero_offset);
 		zero_padding 	= mv_slice(mv, HEADER_LEN + print_info.size, GCODE_OFFSET);
 		gcode 		= mv_slice(mv, GCODE_OFFSET, mv.size);
 
@@ -149,7 +153,7 @@ bool validate_print_info(struct memory_view mv, uint32_t print_info_len){
 
 	if(mv.data != NULL)
 		if(mv.size == print_info_len)
-			result = (mv_index(mv, 0) == -1);
+			result = !mv_index(mv, 0, NULL);
 
 	return result;
 }

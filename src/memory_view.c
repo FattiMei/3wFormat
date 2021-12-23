@@ -6,7 +6,7 @@
 
 
 struct memory_view mv_from_cstring(const char *s){
-	return (struct memory_view){s, strlen(s)};
+	return (struct memory_view){(const uint8_t *)s, strlen(s)};
 }
 
 
@@ -51,37 +51,27 @@ struct memory_view mv_drop_last(struct memory_view mv, size_t n){
 }
 
 
-int mv_index(struct memory_view mv, unsigned char x){
-	int result = -1;
-
+bool mv_index(struct memory_view mv, unsigned char x, size_t *result){
 	if(mv.data != NULL){
 		void *first_occurence = memchr(mv.data, x, mv.size);
 
-		if(first_occurence == NULL)
-			result = -1;
-		else
-			result = (uint8_t *)first_occurence - mv.data;
+		if(first_occurence != NULL){
+			if(result)
+				*result = (uint8_t*)first_occurence - mv.data;
+
+			return true;
+		}
 	}
 
-	return result;
-}
-
-
-int mv_index_slice(struct memory_view mv, unsigned char x, unsigned int start, unsigned int end){
-	int index = mv_index(mv_slice(mv, start, end), x);
-
-	if(index != -1)
-		index += start;
-
-	return index;
+	return false;
 }
 
 
 size_t mv_count(struct memory_view mv, unsigned char x){
-	unsigned int count = 0;
+	size_t count = 0;
 
 	if(mv.data != NULL)
-		for(int i = 0; i < mv.size; ++i)
+		for(size_t i = 0; i < mv.size; ++i)
 			if(mv.data[i] == x)
 				++count;
 
@@ -109,8 +99,8 @@ bool mv_endswith(struct memory_view mv, struct memory_view suffix){
 }
 
 
-unsigned int mv_dump_to_stream(struct memory_view mv, FILE *fp){
-	unsigned int result = 0;
+size_t mv_dump_to_stream(struct memory_view mv, FILE *fp){
+	size_t result = 0;
 
 	if(mv.data != NULL)
 		result = fwrite(mv.data, 1, mv.size, fp);
