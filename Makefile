@@ -1,9 +1,9 @@
 CC = gcc
-CFLAGS = `pkg-config --cflags nettle zlib`
-LIBS = `pkg-config --libs nettle zlib`
+CFLAGS = `pkg-config --cflags nettle`
+LIBS = `pkg-config --libs nettle`
 
 
-SRC = src/aes.c src/memory_view.c src/XYZ3W.c src/to_gcode.c
+SRC = src/aes.c src/memory_view.c src/crc32.c src/XYZ3W.c src/to_gcode.c
 
 
 build: $(SRC)

@@ -3,9 +3,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
-#include <zlib.h>
 
 #include "memory_view.h"
+#include "crc32.h"
 #include "XYZ3W.h"
 #include "aes.h"
 
