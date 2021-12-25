@@ -13,6 +13,8 @@ build: $(SRC)
 check:
 	$(CC) test/unity.c test/test_memory_view.c src/memory_view.c -o test_memory_view.out
 	./test_memory_view.out
+	$(CC) test/unity.c test/test_crc32.c src/crc32.c -o test_crc32.out
+	./test_crc32.out
 
 
 .PHONY: clean
