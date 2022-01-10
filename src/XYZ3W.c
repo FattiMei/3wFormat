@@ -174,7 +174,7 @@ bool validate_gcode(struct memory_view mv, uint32_t expected_crc32){
 	bool result = false;
 
 	if(mv.data != NULL){
-		result = (mv.size % 16 == 0) && (expected_crc32 == crc32(0, mv.data, mv.size));
+		result = (mv.size % 16 == 0) && (expected_crc32 == crc32_mv(0, mv));
 	}
 
 	return result;

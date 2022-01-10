@@ -49,3 +49,10 @@ uint32_t crc32(uint32_t starting_value, const uint8_t* buf, size_t len) {
 
 	return num;
 }
+
+
+#ifdef _MEMORY_VIEW_H
+uint32_t crc32_mv(uint32_t starting_value, struct memory_view mv){
+	return crc32(starting_value, mv.data, mv.size);
+}
+#endif
